@@ -35,4 +35,4 @@ terraform.rc
 
 AWS atym.pem
 AWS.ppk
-ClIinstance.pem
+CLIinstance.pem
