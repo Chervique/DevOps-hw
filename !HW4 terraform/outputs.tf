@@ -4,7 +4,7 @@ output "instance_id" {
   value       = aws_instance.app_server.id
 }
 */
-output "load_balancer_name" {
-  description = "Public IP address of the Phpmyadmin instance"
+output "load_balancer_addr" {
+  description = "LB adress for CLoudflare CNAME"
   value       = aws_lb.lb.dns_name
 } 
