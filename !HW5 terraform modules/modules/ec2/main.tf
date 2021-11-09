@@ -1,3 +1,15 @@
+
+module "net" {
+  source = "../net"
+  
+  /*   tags = {
+    Name  = element(var.instance_name,count.index)
+    Type = element(var.instance_type,count.index)
+  }*/
+
+}
+
+
 resource "aws_instance" "ubuntu" {
   count = var.instance_count
   #vpc_id = aws_vpc.main.id
@@ -8,9 +20,8 @@ resource "aws_instance" "ubuntu" {
   vpc_security_group_ids = [aws_security_group.nginx-sg.id]
   key_name               = var.ec2_key_name
   iam_instance_profile   = var.ec2_iam_instance_profile
-  subnet_id              = aws_subnet.sn-1.id 
+  subnet_id              = element(module.net.public_subnets_ids,0)
   
-
   user_data     = file("nginx.sh")
 
  tags = {

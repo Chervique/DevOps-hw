@@ -4,7 +4,7 @@ resource "aws_lb" "lb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.nginx-sg.id]
-  subnets            = [aws_subnet.sn-1.id,aws_subnet.sn-2.id]
+  subnets            = module.net.public_subnets_ids
 
   enable_deletion_protection = false
 
@@ -53,7 +53,7 @@ resource "aws_lb_target_group" "nginx-tg" {
   port     = 443
   protocol = "HTTPS"
   target_type = "instance"
-  vpc_id           = aws_vpc.main.id
+  vpc_id           = module.net.vpc_id
 }
 
 resource "aws_lb_target_group_attachment" "nginx1" {
@@ -76,7 +76,7 @@ resource "aws_lb_target_group" "phpmyadmin-tg" {
   port     = 443
   protocol = "HTTPS"
   target_type = "instance"
-  vpc_id           = aws_vpc.main.id
+  vpc_id           = module.net.vpc_id
 }
 
 resource "aws_lb_target_group_attachment" "phpmyadmin" {

@@ -5,6 +5,11 @@ variable "ec2_ami" {
   default     = "ami-0a49b025fffbbdac6"
 }
 
+variable "ec2_instance_name" {
+  type = list
+  default = ["nginx1", "nginx2","phpmyadmin"]
+}
+
 variable "ec2_instance_type" {
   type        = string
   default = "t2.micro"
@@ -45,10 +50,7 @@ variable "ec2_tags" {
 
 
 
-variable "ec2_instance_name" {
-  type = list
-  default = ["nginx1", "nginx2","phpmyadmin"]
-}
+
 
 variable "instance_type" {
   type = list
