@@ -1,3 +1,4 @@
+
 variable "ec2_ami" {
   description = ""
   type        = string
@@ -21,8 +22,8 @@ variable "ec2_iam_instance_profile" {
 }
 
 variable "ec2_subnet_id" {
-    type    = string
-    default = null
+    type = list(string)
+  default = ["aws_subnet.sn-1.id","aws_subnet.sn-1.id","aws_subnet.sn-2.id"]
 }
 
 variable "ec2_user_data" {
@@ -42,22 +43,37 @@ variable "ec2_tags" {
   default     = {}
 }
 
-variable "instance_count" {
-  default = "3"
-}
 
-variable "instance_name" {
+
+variable "ec2_instance_name" {
   type = list
   default = ["nginx1", "nginx2","phpmyadmin"]
 }
 
-variable "aws_region" {
+variable "instance_type" {
+  type = list
+  default = ["nginx", "nginx","phpmyadmin"]
+}
+
+variable "region" {
   description = "AWS region"
   type        = string
   default     = "eu-central-1"
 }
 
-variable "vpc_id" {
+variable "ec2_vpc_id" {
     type    = string
     default = "aws_vpc.main.id"
+}
+
+
+variable "lb_dns_name" {
+  type = string
+  default = "aws_lb.lb.dns_name"
+}
+
+
+variable "instance_count" {
+default = "3"
+
 }

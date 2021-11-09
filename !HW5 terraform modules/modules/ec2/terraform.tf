@@ -4,10 +4,7 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 3.27"
     }
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "~> 3.0"
-    }
+  
 
   }
 
@@ -15,15 +12,5 @@ terraform {
 }
 
 
-provider "cloudflare" {
-  email   = "a-tim@ukr.net"
-  api_key = "72f07e53b3edcdb44b59c5e61786b71a37ada"
-}
 
 
-
-
-provider "aws" {
-  profile = "default"
-  region  = var.aws_region
-}

@@ -25,17 +25,26 @@ resource "aws_s3_bucket_object" "object" {
 module "ec2" {
   source = "./modules/ec2"
   
+  
+
+
+  /*   tags = {
+    Name  = element(var.instance_name,count.index)
+    Type = element(var.instance_type,count.index)
+  }*/
 
 }
 
-resource "aws_vpc" "main" {
-  
-  cidr_block = "10.0.0.0/16"
 
-  tags = {
-    Name = "new vpc"
-  }
 
+
+resource "cloudflare_record" "set-lb-cname" {
+  zone_id = "6a997a1bf60b60dc3ca23297fb5db1ab"
+  name    = "@"
+  value   = module.ec2.load_balancer_addr
+  type    = "CNAME"
+  ttl     = "1"
+  proxied = "true"
 }
 /*
 resource "aws_instance" "nginx1" {
