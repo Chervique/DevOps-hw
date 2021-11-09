@@ -1,4 +1,4 @@
-
+#---------------------------------------------
 
 
 resource "cloudflare_record" "set-lb-cname" {
@@ -17,7 +17,7 @@ resource "aws_lb" "lb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.nginx-sg.id]
-  subnets            = [aws_subnet.sn-1.id,aws_subnet.sn-2.id]
+   subnets            = [aws_subnet.sn-1.id,aws_subnet.sn-2.id]
 
   enable_deletion_protection = false
 
@@ -59,7 +59,7 @@ resource "aws_lb_listener_rule" "phpmyadmin" {
 
 
 
-///   nginx target group
+/// nginx target group
 
 resource "aws_lb_target_group" "nginx-tg" {
   name     = "nginx-tg"
@@ -98,4 +98,3 @@ resource "aws_lb_target_group_attachment" "phpmyadmin" {
   port             = 443
   
 }
-
