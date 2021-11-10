@@ -22,7 +22,8 @@ resource "aws_instance" "ubuntu" {
   iam_instance_profile   = var.ec2_iam_instance_profile
   subnet_id              = element(module.net.public_subnets_ids,0)
   
-  user_data     = file("nginx.sh")
+  user_data     =   var.bootstrap  # file("nginx.sh")
+  
 
  tags = {
     Name = var.ec2_instance_name[count.index]

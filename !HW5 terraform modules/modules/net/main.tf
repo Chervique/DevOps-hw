@@ -2,7 +2,7 @@ resource "aws_vpc" "main" {
   cidr_block = var.cidr_block
   
   tags = {
-    Name = "new vpc"
+    Name = "NEW"
   }
   
 }
@@ -47,17 +47,19 @@ resource "aws_subnet" "public" {
 
   tags = {
     Name = "public subnet"
-  }
+  } 
 }
+/*
 resource "aws_subnet" "private" {
  count = var.number_of_AZ 
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.privat_subnet_cidr[count.index]
+  cidr_block = var.private_subnet_cidr[count.index]
   availability_zone = var.zones[count.index]
   map_public_ip_on_launch = "false"
 
   tags = {
-    Name = "privat subnet"
+    Name = "private subnet"
   }
 }
 
+*/

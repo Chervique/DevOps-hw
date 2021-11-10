@@ -1,14 +1,13 @@
 
 
-/// Buckets
+
+
 module "s3_bucket" {
   source = "./modules/s3"
 
   bucket_name = "atymhw4"
   bucket_type = "public-read"
 }
-
-
 resource "aws_s3_bucket_object" "object" {
   for_each = fileset("for_s3/", "*")
   bucket   = module.s3_bucket.bucket_name
@@ -21,12 +20,21 @@ resource "aws_s3_bucket_object" "object" {
 
 /// Instances
 
+module "net" {
+  source = "./modules/net"
+number_of_AZ = 2
+zones = ["eu-central-1a","eu-central-1b"]
+public_subnet_cidr = ["10.0.1.0/24","10.0.2.0/24"]
+// public_subnet_cidr = null
+}
+
 
 module "ec2" {
   source = "./modules/ec2"
   
+  instance_count = 3
+  bootstrap = file("nginx.sh")
   
-
 
   /*   tags = {
     Name  = element(var.instance_name,count.index)

@@ -39,7 +39,7 @@ variable "ec2_user_data" {
 variable "vpc_security_group_ids" {
   description = "A list of security group IDs to associate with"
   type        = list(string)
-  default     = null
+  default     = ["aws_security_group.nginx-sg.id"]
 }
 
 variable "ec2_tags" {
@@ -48,7 +48,9 @@ variable "ec2_tags" {
   default     = {}
 }
 
-
+variable "bootstrap" {
+  default = {}
+}
 
 
 
@@ -76,6 +78,6 @@ variable "lb_dns_name" {
 
 
 variable "instance_count" {
-default = "3"
+default = "1"
 
 }
