@@ -33,6 +33,19 @@ variable "sec_groups" {
 type = list(string)
 }
 
+variable "key_name" {
+type = string
+default = "AWS atym"
+}
+
+variable "iam_profile" {
+type = string
+default = "webserver"
+}
+
+
+/////       outputs     
+
 output "instance_id" {
     value = aws_instance.webserver.id
 }

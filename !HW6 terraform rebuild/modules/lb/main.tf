@@ -12,7 +12,7 @@ resource "tls_self_signed_cert" "atym" {
   private_key_pem = tls_private_key.atym.private_key_pem
 
   subject {
-    common_name  = "atym.pp.com"
+    common_name  = "atym.pp.ua"
     organization = "DEVPRO"
   }
 
@@ -88,7 +88,7 @@ resource "aws_lb_target_group" "nginx-tg" {
   target_type = "instance"
   vpc_id           = var.vpc_id
 }
-/*
+
 resource "aws_lb_target_group_attachment" "nginx1" {
   target_group_arn = aws_lb_target_group.nginx-tg.arn
   target_id        = var.nginx1_id #data.aws_subnet_ids.public.id
@@ -100,7 +100,7 @@ resource "aws_lb_target_group_attachment" "nginx2" {
   target_id        = var.nginx2_id #data.aws_subnet_ids.public.id
   port             = 443     
   
-}*/
+}
 
 
 /// phpmyadmin target group

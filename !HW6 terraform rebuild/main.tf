@@ -28,18 +28,20 @@ count = 2
   webserver_name = "nginx"
   sec_groups = [module.nginx-sg.security_group.id]
   user_data     = file("nginx.sh")
+  
 //  zones = var.zones[count.index]
   
 }
 
 module "phpmyadmin" {
   source = "./modules/ec2_web"
-  subnet_id = module.net.private_id
-  sec_groups = [module.nginx-sg.security_group.id]
-
   vpc_id = aws_vpc.main.id
-  user_data     = file("phpmyadmin.sh")
+
+  subnet_id = module.net.private_id
   webserver_name = "phpmyadmin"
+  sec_groups = [module.nginx-sg.security_group.id]
+  user_data     = file("phpmyadmin.sh")
+  
 
  // zones = ["eu-central-1a","eu-central-1b"]
   

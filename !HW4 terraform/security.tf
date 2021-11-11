@@ -7,7 +7,7 @@ resource "tls_self_signed_cert" "atym" {
   private_key_pem = tls_private_key.atym.private_key_pem
 
   subject {
-    common_name  = "atym.pp.com"
+    common_name  = "atym.pp.ua"
     organization = "DEVPRO"
   }
 
