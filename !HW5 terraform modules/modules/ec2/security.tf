@@ -7,7 +7,7 @@ resource "tls_self_signed_cert" "atym" {
   private_key_pem = tls_private_key.atym.private_key_pem
 
   subject {
-    common_name  = "atym.pp.ua"
+    common_name  = "atym.pp.com"
     organization = "DEVPRO"
   }
 
@@ -70,7 +70,7 @@ data "aws_iam_policy" "s3_access" {
 resource "aws_security_group" "nginx-sg" {
   name        = "nginx-sg"
   description = "Allow 22,80,443"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = module.net.vpc_id
 
    ingress {
     from_port   = 80
