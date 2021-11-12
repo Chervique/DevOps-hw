@@ -1,3 +1,26 @@
+
+////  terraform output ansible_inventory > ../'!HW7 ansible'/inventory.txt
+
+
+///   aws key pair    
+
+resource "tls_private_key" "atym" {
+  algorithm = "RSA"
+}
+
+resource "aws_key_pair" "atym" {
+
+  key_name   = "AWS atym"
+  public_key = tls_private_key.atym.public_key_openssh
+
+
+  provisioner "local-exec" { # Create a "myKey.pem" to your computer!!
+    command = "echo '${tls_private_key.atym.private_key_pem}' > ../'!HW7 ansible/AWS atym.pem'"
+  }
+
+}
+
+
 ///   VPC and subnets   
 
 resource "aws_vpc" "main" {
@@ -27,7 +50,7 @@ count = 2
   subnet_id = module.net.public_id
   webserver_name = "nginx"
   sec_groups = [module.nginx-sg.security_group.id]
-  user_data     = file("nginx.sh")
+  //user_data     = file("amazon-nginx.sh")
   
 //  zones = var.zones[count.index]
   
@@ -40,7 +63,7 @@ module "phpmyadmin" {
   subnet_id = module.net.private_id
   webserver_name = "phpmyadmin"
   sec_groups = [module.nginx-sg.security_group.id]
-  user_data     = file("phpmyadmin.sh")
+//  user_data     = file("phpmyadmin.sh")
   
 
  // zones = ["eu-central-1a","eu-central-1b"]
@@ -116,3 +139,9 @@ resource "cloudflare_record" "set-lb-cname" {
   ttl     = "1"
   proxied = "true"
 }
+
+
+
+
+
+

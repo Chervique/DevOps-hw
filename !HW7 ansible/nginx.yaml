@@ -1,0 +1,98 @@
+- name: install nginx and php
+  hosts: all
+  become: yes
+  tasks:
+    - name: install nginx
+      command: sudo amazon-linux-extras install nginx1 -y
+      
+    - name: install php
+      command: sudo amazon-linux-extras enable php7.4
+      
+    - name: clear metadata
+      command: yum clean metadata
+
+    - name: install php modules 1
+      command: sudo yum install php php-cli php-mysqlnd php-pdo php-common php-fpm -y
+
+    - name: install php modules 2
+      command: sudo yum install php-gd php-mbstring php-xml php-dom php-intl php-simplexml -y
+
+    
+    
+    - name: Copy INDEX
+      copy:
+        src: ./index.php
+        dest: /var/www/html/index.php
+
+    - name: remove folder
+      command: sudo rm -R /etc/nginx/snippets
+
+    - name: create folder
+      command: sudo mkdir /etc/nginx/snippets
+        
+    - name: Copy SNIPPET
+      copy:
+        src: ./self-signed.conf
+        dest: /etc/nginx/snippets/self-signed.conf
+        
+    - name: Copy KEY
+      copy:
+        src: ./atym.key
+        dest: /etc/ssl/atym.key
+        
+
+    - name: Copy PEM
+      copy:
+        src: ./atym.pem
+        dest: /etc/ssl/atym.pem
+        
+
+    - name: Copy CONF
+      template:
+        src: ./amazon-default
+        dest: /etc/nginx/conf.d/atym.conf
+        
+
+    - name: start nginx
+      service:
+        name: nginx
+        state: started
+
+    - name: enable nginx
+      service:
+        name: nginx
+        enabled: yes
+
+    - name: start php-fpm
+      command: sudo systemctl start php-fpm
+    
+    - name: start php-fpm
+      command: sudo systemctl enable php-fpm
+
+
+    - name: restart nginx
+      command: sudo systemctl restart nginx 
+
+
+- name: install nginx and php
+  hosts: database
+  become: yes
+  tasks:      
+    - name: install mariadb
+      command: sudo yum install mariadb-server -y
+    
+    - name: install phpmyadmin
+      command: wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
+    - name: make dir
+      command: sudo mkdir /var/www/html/phpmyadmin
+    - name: unzip
+      command: tar -xvzf phpMyAdmin-latest-all-languages.tar.gz -C /var/www/html/phpmyadmin --strip-components 1
+
+
+    - name: restart DB
+      command: sudo systemctl start mariadb
+    - name: restart nginx
+      command: sudo systemctl restart nginx 
+  
+  
+  

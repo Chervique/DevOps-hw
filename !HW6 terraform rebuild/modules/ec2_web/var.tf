@@ -13,11 +13,12 @@ variable "zones" {
 
 variable "ami" {
 type = string
-default     = "ami-0a49b025fffbbdac6"
+default     = "ami-047e03b8591f2d48a" # ubuntu "ami-0a49b025fffbbdac6"
 }
 
 variable "user_data" {
     type = string
+    default = ""
 }
 
 variable "instance_type" {
@@ -27,6 +28,7 @@ default = "t2.micro"
 
 variable "webserver_name" {
 type = string
+default = "webserver"
 }
 
 variable "sec_groups" {
@@ -41,11 +43,4 @@ default = "AWS atym"
 variable "iam_profile" {
 type = string
 default = "webserver"
-}
-
-
-/////       outputs     
-
-output "instance_id" {
-    value = aws_instance.webserver.id
 }
