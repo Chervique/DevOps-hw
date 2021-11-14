@@ -1,12 +1,29 @@
 
 ////  terraform output ansible_inventory > ../'!HW7 ansible'/inventory.txt
 
+/*
+provisioner "local-exec" { 
+    command = <<-EOT
+     "cd '../!HW7 ansible'"
+     "ssh-agent bash"
+     "sudo cp ../'!HW7 ansible/AWS atym.pem' ~/.ssh/"
+     "chmod 400 ../'!HW7 ansible/AWS atym.pem'"
+     "ssh-add ~/.ssh/'AWS atym.pem'"
+    EOT
+  }
+*/
 
 ///   aws key pair    
 
 resource "tls_private_key" "atym" {
   algorithm = "RSA"
+
+  provisioner "local-exec" { 
+    command = "rm ../'!HW7 ansible/AWS atym.pem'"
+  }
 }
+
+
 
 resource "aws_key_pair" "atym" {
 
@@ -17,7 +34,7 @@ resource "aws_key_pair" "atym" {
   provisioner "local-exec" { # Create a "myKey.pem" to your computer!!
     command = "echo '${tls_private_key.atym.private_key_pem}' > ../'!HW7 ansible/AWS atym.pem'"
   }
-
+ 
 }
 
 
@@ -79,7 +96,7 @@ policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
 }
 
 
-///  S3      
+///   S3    
 module "s3_bucket" {
   source = "./modules/s3"
 

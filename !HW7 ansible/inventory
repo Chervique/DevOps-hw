@@ -1,6 +1,6 @@
 [webservers]
-nginx1 ansible_host=3.70.120.107 ansible_connection=ssh ansible_user=ec2-user
-nginx2 ansible_host=52.58.4.191 ansible_connection=ssh ansible_user=ec2-user
+nginx1 ansible_host=3.64.214.41 ansible_connection=ssh ansible_user=ec2-user
+nginx2 ansible_host=18.194.53.61 ansible_connection=ssh ansible_user=ec2-user
 
 [database]
-phpmyadmin ansible_host=3.127.40.161 ansible_connection=ssh ansible_user=ec2-user
+phpmyadmin ansible_host=3.122.254.214 ansible_connection=ssh ansible_user=ec2-user

@@ -19,7 +19,6 @@ resource "aws_security_group" "nginx-sg" {
     }
 
 
-
     ingress {
     from_port   = 22
     to_port     = 22

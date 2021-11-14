@@ -24,11 +24,13 @@
         src: ./index.php
         dest: /var/www/html/index.php
 
-    - name: remove folder
-      command: sudo rm -R /etc/nginx/snippets
+    
 
-    - name: create folder
-      command: sudo mkdir /etc/nginx/snippets
+    - name: Creates directory
+      file:
+        path: /etc/nginx/snippets
+        state: directory
+    
         
     - name: Copy SNIPPET
       copy:
@@ -74,7 +76,7 @@
       command: sudo systemctl restart nginx 
 
 
-- name: install nginx and php
+- name: install mysql and phpmyadmin
   hosts: database
   become: yes
   tasks:      
