@@ -1,0 +1,72 @@
+- name: install nginx
+  command: sudo amazon-linux-extras install nginx1 -y
+      
+- name: install php
+  command: sudo amazon-linux-extras enable php7.4
+      
+- name: clear metadata
+  command: yum clean metadata
+
+- name: install php modules 1
+  command: sudo yum install php php-cli php-mysqlnd php-pdo php-common php-fpm -y
+
+- name: install php modules 2
+  command: sudo yum install php-gd php-mbstring php-xml php-dom php-intl php-simplexml -y
+
+    
+    
+- name: Copy INDEX
+  copy:
+        src: ./files/index.php
+        dest: /var/www/html/index.php
+
+    
+
+- name: Creates directory
+  file:
+        path: /etc/nginx/snippets
+        state: directory
+    
+        
+- name: Copy SNIPPET
+  copy:
+        src: ./files/self-signed.conf
+        dest: /etc/nginx/snippets/self-signed.conf
+        
+- name: Copy KEY
+  copy:
+        src: ./files/atym.key
+        dest: /etc/ssl/atym.key
+        
+
+- name: Copy PEM
+  copy:
+        src: ./files/atym.pem
+        dest: /etc/ssl/atym.pem
+        
+
+- name: Copy CONF
+  template:
+        src: ./files/amazon-default
+        dest: /etc/nginx/conf.d/atym.conf
+        
+
+- name: start nginx
+  service:
+        name: nginx
+        state: started
+
+- name: enable nginx
+  service:
+        name: nginx
+        enabled: yes
+
+- name: start php-fpm
+  command: sudo systemctl start php-fpm
+    
+- name: start php-fpm
+  command: sudo systemctl enable php-fpm
+
+
+- name: restart nginx
+  command: sudo systemctl restart nginx 
