@@ -64,13 +64,12 @@ module "nginx" {
   source = "./modules/ec2_web"
   vpc_id = aws_vpc.main.id
 
-count = 2
+  count = 2
   subnet_id = module.net.public_id
   webserver_name = "nginx"
   sec_groups = [module.nginx-sg.security_group.id]
   //user_data     = file("amazon-nginx.sh")
-  
-//  zones = var.zones[count.index]
+  //  zones = var.zones[count.index]
   
 }
 
@@ -81,10 +80,8 @@ module "phpmyadmin" {
   subnet_id = module.net.private_id
   webserver_name = "phpmyadmin"
   sec_groups = [module.nginx-sg.security_group.id]
-//  user_data     = file("phpmyadmin.sh")
-  
-
- // zones = ["eu-central-1a","eu-central-1b"]
+  //  user_data     = file("phpmyadmin.sh")
+  // zones = ["eu-central-1a","eu-central-1b"]
   
 }
 
@@ -124,6 +121,7 @@ vpc_id = aws_vpc.main.id
   protocol = "TCP"
   inc_cidr_block = ["0.0.0.0/0"]
 }
+
 
 
 

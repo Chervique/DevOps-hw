@@ -1,15 +1,27 @@
-- name: install mariadb
-  command: sudo yum install mariadb-server -y
+- name: Install MariaDB
+  yum:
+    name:
+      - mariadb-server
+      - mariadb-client
+
+#- name: install mariadb
+#  command: sudo yum install mariadb-server mariadb-client
     
+ 
 - name: install phpmyadmin
   command: wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
-- name: make dir
-  command: sudo mkdir /var/www/html/phpmyadmin
+
+- name: Creates directory
+  file:
+        path: /var/www/html/phpmyadmin
+        state: directory
+
 - name: unzip
   command: tar -xvzf phpMyAdmin-latest-all-languages.tar.gz -C /var/www/html/phpmyadmin --strip-components 1
 
+ 
 
-- name: restart DB
-  command: sudo systemctl start mariadb
 - name: restart nginx
-  command: sudo systemctl restart nginx 
+  service:
+        name: nginx
+        state: restarted  
