@@ -7,7 +7,6 @@
 #- name: install mariadb
 #  command: sudo yum install mariadb-server mariadb-client
     
----
 - name: Creates directory
   file:
     path: /var/www/html/phpmyadmin/
