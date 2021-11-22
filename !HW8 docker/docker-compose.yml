@@ -1,0 +1,25 @@
+version: '3.9'
+services:  
+    mysql_db:      
+        image: mariadb
+        container_name: mysql
+        environment: 
+            - MYSQL_ROOT_PASSWORD=123            
+        # ports:
+        #     - "3306:3306"     
+        restart: unless-stopped
+        
+    nginx:
+        build: 
+            context: ./php
+            dockerfile: /Dockerfile
+        container_name: nginx
+        ports:
+            - "80:80"
+            - "443:443"           
+        environment:
+            PMA_HOST: mysql_db      
+        links: 
+            - mysql_db:db       
+        restart: always
+         

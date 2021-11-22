@@ -33,8 +33,6 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-AWS atym.pem
-AWS.ppk
-CLIinstance.pem
-**/for_s3/atym.pem
-**/for_s3/atym.key
+*.pem
+*.key
+*.ppk
