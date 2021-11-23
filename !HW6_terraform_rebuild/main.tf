@@ -19,7 +19,7 @@ resource "tls_private_key" "atym" {
   algorithm = "RSA"
 
   provisioner "local-exec" { 
-    command = "rm -f -- ../'!HW7_ansible/AWS atym.pem'"
+    command = "chmod 777 ../'!HW7_ansible/AWS atym.pem' && rm -f -- ../'!HW7_ansible/AWS atym.pem'"
   }
 }
 
