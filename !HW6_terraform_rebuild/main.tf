@@ -31,7 +31,7 @@ resource "aws_key_pair" "atym" {
   public_key = tls_private_key.atym.public_key_openssh
 
 
-  provisioner "local-exec" { # Create a "myKey.pem" to your computer!!
+  provisioner "local-exec" { 
     command = "echo '${tls_private_key.atym.private_key_pem}' > ../'!HW7_ansible/AWS atym.pem' && chmod 400 ../'!HW7_ansible/AWS atym.pem'"
   }
  

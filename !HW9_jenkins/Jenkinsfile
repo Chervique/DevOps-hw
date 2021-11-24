@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+        
+
+    tools {
+        terraform 'Terraform'
+    }
+    stages {
+        
+        stage('Git') {
+            steps {
+                git branch: 'dev', url: 'https://github.com/Chervique/devops-hw.git'
+               // sh 'rm -f -- ./"!HW7_ansible/AWS atym.pem"'
+                
+            }
+        }
+        stage('Terraform init') {
+            steps {
+                sh 'terraform -chdir="./!HW6_terraform_rebuild" init '
+            }
+        }
+        stage('Terraform apply/destroy') {
+            steps {
+                sh 'terraform -chdir="./!HW6_terraform_rebuild" ${action} -auto-approve '
+            }
+        }
+//        stage('Ansible') {
+//            steps {
+ //               ansiblePlaybook become: true, becomeUser: 'ec2-user', credentialsId: 'ssh', disableHostKeyChecking: true, installation: 'ansible plugin', inventory: './!HW7_ansible/aws_ec2.yaml', playbook: './!HW7_ansible/playbook'
+ //           }
+//        }
+    }
+
+}

@@ -23,6 +23,9 @@ provider "cloudflare" {
 provider "aws" {
   profile = "default"
   region  = "eu-central-1"
+  access_key                  = "AKIA4FPGXF6BMMU5YJZU"
+  
+  secret_key                  = "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"
 }
 
 
