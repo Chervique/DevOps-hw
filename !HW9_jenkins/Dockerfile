@@ -14,9 +14,6 @@ RUN    apt install terraform -y
 RUN    apt install ansible -y
 RUN    apt install git -y   
 RUN    apt install docker -y
-RUN    export TF_VAR_awsid="AKIA4FPGXF6BMMU5YJZU"
-RUN    export TF_VAR_awskey="5Sc50NzdAuyNxAmvhI1Q4+0yzvh5HIB85gCgYoeU"
-RUN    export AWS_DEFAULT_REGION=eu-central-1
 
 
 RUN    ansible-galaxy collection install amazon.aws
