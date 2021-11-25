@@ -6,9 +6,9 @@ provisioner "local-exec" {
     command = <<-EOT
      "cd '../!HW7 ansible'"
      "ssh-agent bash"
-     "sudo cp ../'!HW7 ansible/AWS atym.pem' ~/.ssh/"
-     "chmod 400 ../'!HW7 ansible/AWS atym.pem'"
-     "ssh-add ~/.ssh/'AWS atym.pem'"
+     "sudo cp ../'!HW7 ansible/AWS_atym.pem' ~/.ssh/"
+     "chmod 400 ../'!HW7 ansible/AWS_atym.pem'"
+     "ssh-add ~/.ssh/'AWS_atym.pem'"
     EOT
   }
 */
@@ -19,7 +19,7 @@ resource "tls_private_key" "atym" {
   algorithm = "RSA"
 
   /* provisioner "local-exec" { 
-    command = "rm -f -- ../'!HW7_ansible/AWS atym.pem'"
+    command = "rm -f -- ../'!HW7_ansible/AWS_atym.pem'"
   } */
 }
 
@@ -32,7 +32,7 @@ resource "aws_key_pair" "atym" {
 
 
   provisioner "local-exec" { 
-    command = "echo '${tls_private_key.atym.private_key_pem}' > ../'!HW7_ansible/AWS atym.pem' && chmod 400 ../'!HW7_ansible/AWS atym.pem'"
+    command = "echo '${tls_private_key.atym.private_key_pem}' > ../'!HW7_ansible/AWS_atym.pem' && chmod 400 ../'!HW7_ansible/AWS_atym.pem'"
   }
  
 }
