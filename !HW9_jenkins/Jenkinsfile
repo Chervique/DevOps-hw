@@ -1,34 +1,33 @@
-pipeline {
-    agent any
-        
-
-    tools {
-        terraform 'Terraform'
-    }
+pipeline {   
+   agent {
+        docker { 
+            image 'slave-final' 
+            args '-u root:sudo'
+        }
+    }       
     stages {
         
-        stage('Git') {
+        stage('Terraform') {
+            
             steps {
+                sh 'whoami'
                 git branch: 'dev', url: 'https://github.com/Chervique/devops-hw.git'
-               // sh 'rm -f -- ./"!HW7_ansible/AWS atym.pem"'
-                
-            }
-        }
-        stage('Terraform init') {
-            steps {
+            //    sh 'rm -f -- ./"!HW7_ansible/AWS atym.pem"'
                 sh 'terraform -chdir="./!HW6_terraform_rebuild" init '
+                sh 'TF_VAR_awsid="AKIA4FPGXF6BMMU5YJZU" TF_VAR_awskey="5Sc50NzdAuyNxAmvhI1Q4+0yzvh5HIB85gCgYoeU" terraform -chdir="./!HW6_terraform_rebuild" ${action} -auto-approve '
             }
-        }
-        stage('Terraform apply/destroy') {
+        }        
+        stage('Ansible') {            
             steps {
-                sh 'terraform -chdir="./!HW6_terraform_rebuild" ${action} -auto-approve '
+            
+                sh 'ls -la ./!HW7_ansible/'    
+                sh 'openssl req -subj "/CN=devpro/O=ATym/C=UA" -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout !HW7_ansible/roles/nginx/tasks/files/atym.key -out !HW7_ansible/roles/nginx/tasks/files/atym.pem'
+                
+        
+               
+                sh 'AWS_ACCESS_KEY_ID=AKIA4FPGXF6BMMU5YJZU AWS_SECRET_ACCESS_KEY=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 AWS_DEFAULT_REGION=eu-central-1 ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook ./!HW7_ansible/playbook -i ./!HW7_ansible/aws_ec2.yaml --private-key ./!HW7_ansible/AWS_atym.pem -e "ansible_ssh_user=ec2-user" '
             }
         }
-//        stage('Ansible') {
-//            steps {
- //               ansiblePlaybook become: true, becomeUser: 'ec2-user', credentialsId: 'ssh', disableHostKeyChecking: true, installation: 'ansible plugin', inventory: './!HW7_ansible/aws_ec2.yaml', playbook: './!HW7_ansible/playbook'
- //           }
-//        }
     }
 
 }
