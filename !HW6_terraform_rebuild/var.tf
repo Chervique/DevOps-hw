@@ -1,11 +1,11 @@
 variable "awsid" {
-  description = "The username for the DB master user"
+  description = "AWS ID"
   type        = string
-  sensitive   = true
+//  sensitive   = true
 }
 
 variable "awskey" {
-  description = "The password for the DB master user"
+  description = "AWS key"
   type        = string
-  sensitive   = true
+//  sensitive   = true
 }
