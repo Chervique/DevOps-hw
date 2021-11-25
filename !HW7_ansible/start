@@ -1,5 +1,5 @@
 #! /bin/bash
-chmod 400 ./'AWS atym.pem'
+chmod 400 ./'AWS_atym.pem'
 ssh-agent bash
-sudo cp 'AWS atym.pem' ~/.ssh/'AWS atym.pem'
-ssh-add ~/.ssh/'AWS atym.pem'
+sudo cp 'AWS_atym.pem' ~/.ssh/'AWS_atym.pem'
+ssh-add ~/.ssh/'AWS_atym.pem'
