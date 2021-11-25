@@ -13,8 +13,9 @@ RUN    apt install awscli -y
 RUN    apt install terraform -y  
 RUN    apt install ansible -y
 RUN    apt install git -y   
-RUN    apt install ssh -y
-RUN    systemctl enable ssh
-RUN    service ssh start
+RUN    apt install docker -y
+RUN    export AWS_ACCESS_KEY_ID=AKIA4FPGXF6BMMU5YJZU
+RUN    export AWS_SECRET_ACCESS_KEY=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
+RUN    export AWS_DEFAULT_REGION=eu-central-1
 
 RUN    ansible-galaxy collection install amazon.aws
