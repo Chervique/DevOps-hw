@@ -15,5 +15,8 @@ RUN    apt install ansible -y
 RUN    apt install git -y   
 RUN    apt install docker -y
 
-
 RUN    ansible-galaxy collection install amazon.aws
+RUN    apt install python3-boto3 -y
+RUN    apt-get -y install python3-distutils
+RUN    wget https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
+RUN    python3 /tmp/get-pip.py
